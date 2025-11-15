@@ -5,6 +5,7 @@
 }: {
   imports = [
     ./hardware-configuration.nix
+    ./disko-config.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

@@ -34,7 +34,7 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = "es";
-    useXkbConfig = true;
+    useXkbConfig = false;
   };
 
   users.users.ori = {

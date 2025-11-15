@@ -32,12 +32,19 @@
     extraGroups = ["wheel"];
   };
 
-  # List packages installed in system profile.
-  # You can use https://search.nixos.org/ to find more packages (and options).
-  # environment.systemPackages = with pkgs; [
-  #   vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #   wget
-  # ];
+  programs.git = {
+    enable = true;
+    config = {
+      user = {
+        email = "luis@quinones.pro";
+        name = "Luis Quiñones";
+      };
+      init.defaultBranch = "main";
+      url."ssh://git@github.com/".insteadOf = "https://github.com/";
+      rebase.autoStash = true;
+      pull.rebase = true;
+    };
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

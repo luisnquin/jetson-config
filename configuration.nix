@@ -19,6 +19,7 @@
       enable = true;
       som = "orin-nano";
       carrierBoard = "devkit";
+      firmware.autoUpdate = true;
     };
 
     graphics.enable = true;

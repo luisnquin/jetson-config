@@ -75,6 +75,13 @@
     '';
   };
 
+  environment = {
+    systemPackages = [pkgs.xclip];
+    shellAliases = {
+      copy = "xclip -selection clipboard";
+    };
+  };
+
   programs.zsh = {
     enable = true;
     autosuggestions = {

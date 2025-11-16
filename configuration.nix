@@ -15,9 +15,11 @@
     cudaCapabilities = ["8.7"];
   };
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader = {
+    timeout = 1;
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+  };
 
   hardware = {
     nvidia-jetpack = {

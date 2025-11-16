@@ -6,6 +6,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
+    ./components/i3.nix
   ];
 
   nixpkgs.config = {

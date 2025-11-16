@@ -7,13 +7,9 @@
         content = {
           type = "gpt";
           partitions = {
-            boot = {
-              size = "1M";
-              type = "EF02"; # for grub (modify)
-            };
             ESP = {
               type = "EF00";
-              size = "500M";
+              size = "512M";
               content = {
                 type = "filesystem";
                 format = "vfat";
@@ -21,11 +17,17 @@
               };
             };
             root = {
-              size = "100%";
+              size = "224G";
               content = {
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/";
+              };
+            };
+            swap = {
+              size = "8G";
+              content = {
+                type = "swap";
               };
             };
           };

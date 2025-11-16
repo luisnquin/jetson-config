@@ -92,4 +92,6 @@
   environment.shellAliases = {
     "lg" = "lazygit";
   };
+
+  environment.systemPackages = with pkgs; [btop-cuda];
 }

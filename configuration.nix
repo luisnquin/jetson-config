@@ -3,7 +3,7 @@
     ./hardware-configuration.nix
     ./disko-config.nix
     ./components/i3.nix
-    ./components/term+shell.nix
+    ./components/term+shell
   ];
 
   nixpkgs.config = {

@@ -83,4 +83,13 @@
       pull.rebase = true;
     };
   };
+
+  programs.lazygit = {
+    enable = true;
+    settings = import ./lazygit-settings.nix;
+  };
+
+  environment.shellAliases = {
+    "lg" = "lazygit";
+  };
 }

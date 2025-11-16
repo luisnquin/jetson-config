@@ -8,11 +8,16 @@
     ./disko-config.nix
   ];
 
+  nixpkgs.config = {
+    allowUnfree = true;
+    cudaSupport = true;
+    # reduces build times, produces smaller closures, and provides the CUDA compiler more opportunities for optimization
+    cudaCapabilities = ["8.7"];
+  };
+
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  nixpkgs.config.allowUnfree = true;
 
   hardware = {
     nvidia-jetpack = {

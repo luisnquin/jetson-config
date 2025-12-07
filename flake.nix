@@ -16,7 +16,12 @@
     jetpack,
     disko,
     ...
-  }: {
+  }: let
+    forAllSystems = function:
+      nixpkgs.lib.genAttrs ["aarch64-linux"] (
+        system: function nixpkgs.legacyPackages.${system}
+      );
+  in {
     nixosConfigurations.jyx = nixpkgs.lib.nixosSystem {
       modules = [
         ./configuration.nix
@@ -24,5 +29,10 @@
         disko.nixosModules.default
       ];
     };
+
+    packages = forAllSystems (pkgs: rec {
+      default = pkgs.callPackage ./installer {};
+      infection = default;
+    });
   };
 }

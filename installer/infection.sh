@@ -1,8 +1,7 @@
 #!/bin/sh
 
-DOTS_DIR="~/.dotfiles"
-
 infect() {
+	DOTS_DIR="$HOME/.dotfiles"
 	git clone https://github.com/luisnquin/jetson-config.git "$DOTS_DIR"
 
 	cd "$DOTS_DIR"
@@ -14,4 +13,9 @@ infect() {
 	fi
 }
 
-infect
+main() {
+	sudo -i
+	infect
+}
+
+main

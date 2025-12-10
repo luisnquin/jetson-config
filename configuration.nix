@@ -45,7 +45,7 @@
     networkmanager.enable = true;
   };
 
-  time.timeZone = "America/Lima";
+  time.timeZone = "America/New_York";
 
   i18n.defaultLocale = "en_US.UTF-8";
 

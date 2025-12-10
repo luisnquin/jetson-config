@@ -13,10 +13,19 @@
     cudaCapabilities = ["8.7"];
   };
 
-  boot.loader = {
-    timeout = 1;
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      timeout = 1;
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
+    # audio stack isn’t needed. ADMAIF and graph-card trigger registration errors (-16) due to DT mismatches, so this reduces the boot noise
+    kernelParams = [
+      "snd_soc_tegra210_admaif.disable=1"
+    ];
+
+    blacklistedKernelModules = ["tegra-audio-graph-card"];
   };
 
   hardware = {

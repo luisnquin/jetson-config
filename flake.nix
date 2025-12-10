@@ -9,9 +9,14 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    black-terminal = {
+      url = "github:luisnquin/black-terminal";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
+    black-terminal,
     nixpkgs,
     jetpack,
     disko,
@@ -24,6 +29,7 @@
   in {
     nixosConfigurations.jyx = nixpkgs.lib.nixosSystem {
       modules = [
+        black-terminal.nixosModules.default
         ./configuration.nix
         jetpack.nixosModules.default
         disko.nixosModules.default

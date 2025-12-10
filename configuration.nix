@@ -49,7 +49,7 @@
 
   i18n.defaultLocale = "en_US.UTF-8";
 
-  users.users.ori = {
+  users.users.luisnquin = {
     isNormalUser = true;
     extraGroups = ["wheel"];
     shell = pkgs.zsh;

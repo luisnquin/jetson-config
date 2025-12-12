@@ -18,7 +18,7 @@
               };
             };
             root = {
-              size = "224G";
+              size = "228G";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -26,7 +26,7 @@
               };
             };
             swap = {
-              size = "8G";
+              size = "4G";
               content = {
                 type = "swap";
               };

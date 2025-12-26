@@ -9,10 +9,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    black-terminal = {
-      url = "github:luisnquin/black-terminal";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    black-terminal.url = "github:luisnquin/black-terminal";
   };
 
   outputs = {

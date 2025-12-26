@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "black-terminal": {
+      "locked": {
+        "lastModified": 1765686758,
+        "narHash": "sha256-mLbsGx/tD+rn1zKB0Oi3dpzpE0D5EBqOqwqQvNTSJuM=",
+        "owner": "luisnquin",
+        "repo": "black-terminal",
+        "rev": "c503c036694ebb75b2b14c44b86665a481b325e7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "luisnquin",
+        "repo": "black-terminal",
+        "type": "github"
+      }
+    },
     "cuda-legacy": {
       "inputs": {
         "flake-parts": [
@@ -69,22 +84,23 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1762977756,
-        "narHash": "sha256-4PqRErxfe+2toFJFgcRKZ0UI9NSIOJa+7RXVtBhy4KE=",
-        "owner": "NixOS",
+        "lastModified": 1766687554,
+        "narHash": "sha256-DegN7KD/EtFSKXf2jvqL6lvev6GlfAAatYBcRC8goEo=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c5ae371f1a6a7fd27823bc500d9390b38c05fa55",
+        "rev": "fd0ca39c92fdb4012ed8d60e1683c26fddadd136",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "owner": "nixos",
+        "ref": "nixos-25.05",
         "repo": "nixpkgs",
         "type": "github"
       }
     },
     "root": {
       "inputs": {
+        "black-terminal": "black-terminal",
         "disko": "disko",
         "jetpack": "jetpack",
         "nixpkgs": "nixpkgs"

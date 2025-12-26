@@ -7,5 +7,5 @@ NixOS configuration for my NVIDIA Jetson board, focused on reproducibility and e
 
 ```bash
 $ sudo loadkeys es
-$ nix --no-write-lock-file --extra-experimental-features "nix-command flakes" run github:luisnquin/jetson-config#infection
+$ nix --extra-experimental-features "nix-command flakes" run --no-write-lock-file github:luisnquin/jetson-config#infection
 ```

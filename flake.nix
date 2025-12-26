@@ -1,10 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    jetpack = {
-      url = "github:anduril/jetpack-nixos/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    jetpack.url = "github:anduril/jetpack-nixos/master";
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -6,6 +6,8 @@
     ./components/term+shell
   ];
 
+  # TODO: use niri
+
   nixpkgs.config = {
     allowUnfree = true;
     cudaSupport = true;
@@ -61,6 +63,8 @@
       copy = "xclip -selection clipboard";
     };
   };
+
+  services.fstrim.enable = true;
 
   shared = {
     aliases.enable = true;

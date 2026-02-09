@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/77ef7a29d276c6d8303aece3444d61118ef71ac2";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     jetpack = {
       url = "github:anduril/jetpack-nixos/master";
       inputs.nixpkgs.follows = "nixpkgs";

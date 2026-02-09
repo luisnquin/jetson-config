@@ -2,11 +2,8 @@
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
-    ./components/i3.nix
     ./components/term+shell
   ];
-
-  programs.niri.enable = true;
 
   services.greetd = {
     enable = true;
@@ -69,14 +66,19 @@
 
   users.users.luisnquin = {
     isNormalUser = true;
-    extraGroups = ["wheel"];
+    extraGroups = ["wheel" "video"];
     shell = pkgs.zsh;
   };
 
+  programs.niri.enable = true;
+
   environment = {
-    systemPackages = [pkgs.xclip];
+    systemPackages = [
+      pkgs.wl-clipboard
+      pkgs.alacritty
+    ];
     shellAliases = {
-      copy = "xclip -selection clipboard";
+      copy = "wl-copy";
     };
   };
 

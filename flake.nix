@@ -13,6 +13,10 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri = {
+      url = "github:sodiboo/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     black-terminal.url = "github:luisnquin/black-terminal";
   };
 
@@ -21,6 +25,7 @@
     disko,
     home-manager,
     jetpack,
+    niri,
     nixpkgs,
     ...
   }: let
@@ -35,6 +40,7 @@
         ./configuration.nix
         jetpack.nixosModules.default
         disko.nixosModules.default
+        niri.nixosModules.niri
       ];
     };
 

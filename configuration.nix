@@ -6,7 +6,22 @@
     ./components/term+shell
   ];
 
-  # TODO: use niri
+  programs.niri.enable = true;
+
+  services.greetd = {
+    enable = true;
+    useTextGreeter = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.lib.getExe pkgs.greetd.tuigreet} --time --remember --cmd niri-session";
+        user = "greeter";
+      };
+      initial_session = {
+        command = "niri-session";
+        user = "luisnquin";
+      };
+    };
+  };
 
   nixpkgs.config = {
     allowUnfree = true;

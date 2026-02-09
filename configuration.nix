@@ -10,7 +10,7 @@
     useTextGreeter = true;
     settings = {
       default_session = {
-        command = "${pkgs.lib.getExe pkgs.greetd.tuigreet} --time --remember --cmd niri-session";
+        command = "${pkgs.lib.getExe pkgs.tuigreet} --time --remember --cmd niri-session";
         user = "greeter";
       };
       initial_session = {

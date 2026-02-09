@@ -52,7 +52,7 @@
       super = true;
       carrierBoard = "devkit";
       firmware.autoUpdate = true;
-      modesetting.enable = false; # x11 - has proven to be more reliable than wayland
+      modesetting.enable = true; # wayland
     };
 
     graphics.enable = true;

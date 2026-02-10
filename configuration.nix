@@ -58,10 +58,8 @@
 
   services.xserver = {
     enable = true;
-
-    desktopManager = {
-      xterm.enable = false;
-    };
+    desktopManager.xterm.enable = false;
+    displayManager.lightdm.enable = true;
 
     windowManager.i3 = {
       enable = true;
@@ -74,8 +72,11 @@
     };
   };
 
+  programs.i3lock.enable = true;
+
+  security.pam.services.i3lock.enable = true;
+
   services.displayManager = {
-    enable = true;
     defaultSession = "none+i3";
     autoLogin = {
       enable = true;

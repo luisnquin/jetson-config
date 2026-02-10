@@ -4,21 +4,6 @@
     ./disko-config.nix
   ];
 
-  services.greetd = {
-    enable = true;
-    useTextGreeter = true;
-    settings = {
-      default_session = {
-        command = "${pkgs.lib.getExe pkgs.tuigreet} --time --remember --cmd niri-session";
-        user = "greeter";
-      };
-      initial_session = {
-        command = "niri-session";
-        user = "luisnquin";
-      };
-    };
-  };
-
   nixpkgs.config = {
     allowUnfree = true;
     cudaSupport = true;
@@ -26,10 +11,16 @@
     cudaCapabilities = ["8.7"];
   };
 
-  boot.loader = {
-    timeout = 5;
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+  boot = {
+    loader = {
+      timeout = 5;
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+    };
+
+    # Suppress audio errors - not needed and causes boot noise
+    kernelParams = ["snd_soc_tegra210_admaif.disable=1"];
+    blacklistedKernelModules = ["tegra-audio-graph-card"];
   };
 
   hardware = {
@@ -39,7 +30,7 @@
       super = true;
       carrierBoard = "devkit";
       firmware.autoUpdate = true;
-      modesetting.enable = true; # wayland
+      modesetting.enable = false; # X11 - more stable on Jetson
     };
 
     graphics.enable = true;
@@ -63,15 +54,42 @@
     };
   };
 
-  programs.niri.enable = true;
+  environment.pathsToLink = ["/libexec"];
+
+  services.xserver = {
+    enable = true;
+
+    desktopManager = {
+      xterm.enable = false;
+    };
+
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        dmenu
+        i3status
+        i3lock
+        i3blocks
+      ];
+    };
+  };
+
+  services.displayManager = {
+    enable = true;
+    defaultSession = "none+i3";
+    autoLogin = {
+      enable = true;
+      user = "luisnquin";
+    };
+  };
 
   environment = {
     systemPackages = [
-      pkgs.wl-clipboard
+      pkgs.xclip
       pkgs.alacritty
     ];
     shellAliases = {
-      copy = "wl-copy";
+      copy = "xclip -selection clipboard";
     };
   };
 

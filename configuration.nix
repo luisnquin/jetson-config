@@ -76,13 +76,7 @@
 
   security.pam.services.i3lock.enable = true;
 
-  services.displayManager = {
-    defaultSession = "none+i3";
-    autoLogin = {
-      enable = true;
-      user = "luisnquin";
-    };
-  };
+  services.getty.autologinUser = "luisnquin";
 
   environment = {
     systemPackages = [

@@ -11,16 +11,10 @@
     cudaCapabilities = ["8.7"];
   };
 
-  boot = {
-    loader = {
-      timeout = 5;
-      systemd-boot.enable = true;
-      efi.canTouchEfiVariables = true;
-    };
-
-    # Suppress audio errors - not needed and causes boot noise
-    kernelParams = ["snd_soc_tegra210_admaif.disable=1"];
-    blacklistedKernelModules = ["tegra-audio-graph-card"];
+  boot.loader = {
+    timeout = 5;
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
 
   hardware = {
@@ -30,7 +24,7 @@
       super = true;
       carrierBoard = "devkit";
       firmware.autoUpdate = true;
-      modesetting.enable = false; # X11 - more stable on Jetson
+      modesetting.enable = false; # X11
     };
 
     graphics.enable = true;
@@ -58,7 +52,7 @@
 
   services.xserver = {
     enable = true;
-    desktopManager.xterm.enable = false;
+    desktopManager.xterm.enable = true;
     displayManager.lightdm.enable = true;
 
     windowManager.i3 = {

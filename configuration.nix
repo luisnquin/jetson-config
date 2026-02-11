@@ -21,7 +21,6 @@
     # Suppress audio errors - not needed and causes boot noise
     kernelParams = ["snd_soc_tegra210_admaif.disable=1"];
     blacklistedKernelModules = ["tegra-audio-graph-card"];
-    plymouth.enable = false;
   };
 
   hardware = {
@@ -80,10 +79,9 @@
   services.getty.autologinUser = "luisnquin";
 
   environment = {
-    systemPackages = with pkgs; [
-      xclip
-      alacritty
-      xorg.xinit
+    systemPackages = [
+      pkgs.xclip
+      pkgs.alacritty
     ];
     shellAliases = {
       copy = "xclip -selection clipboard";

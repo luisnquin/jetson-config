@@ -24,7 +24,7 @@
       super = true;
       carrierBoard = "devkit";
       firmware.autoUpdate = true;
-      modesetting.enable = false; # X11
+      modesetting.enable = false;
     };
 
     graphics.enable = true;
@@ -52,7 +52,7 @@
 
   services.xserver = {
     enable = true;
-    desktopManager.xterm.enable = true;
+
     displayManager.lightdm.enable = true;
 
     windowManager.i3 = {
@@ -69,15 +69,6 @@
   programs.i3lock.enable = true;
 
   security.pam.services.i3lock.enable = true;
-
-  services.getty.autologinUser = "luisnquin";
-
-  services.greetd = {
-    enable = true;
-    settings.default_session = {
-      command = ''${pkgs.greetd}/bin/agreety --cmd ${pkgs.lib.getExe pkgs.i3}'';
-    };
-  };
 
   environment = {
     systemPackages = [

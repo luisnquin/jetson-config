@@ -72,6 +72,13 @@
 
   services.getty.autologinUser = "luisnquin";
 
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      command = ''${pkgs.greetd}/bin/agreety --cmd ${pkgs.lib.getExe pkgs.i3}'';
+    };
+  };
+
   environment = {
     systemPackages = [
       pkgs.xclip

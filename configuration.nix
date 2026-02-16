@@ -42,7 +42,7 @@
   users.users = {
     luisnquin = {
       isNormalUser = true;
-      extraGroups = ["wheel" "video"];
+      extraGroups = ["wheel" "video" "wheel"];
       shell = pkgs.zsh;
       initialHashedPassword = "$6$w7DRQhmRQYAWrNLA$bfPYYbuJjVO80Del1dRKa.8vfE1ceHUDRvfXpOHy3XbyeJouBe2ZXJA6wUhw8BYaJ0ZPbtnFo1pI9r84tk2481";
     };
@@ -68,7 +68,17 @@
 
   programs.i3lock.enable = true;
 
-  security.pam.services.i3lock.enable = true;
+  security = {
+    pam.services.i3lock.enable = true;
+    sudo = {
+      enable = true;
+      wheelNeedsPassword = true;
+
+      configFile = ''
+        Defaults 	insults
+      '';
+    };
+  };
 
   services.getty.autologinUser = "luisnquin";
 

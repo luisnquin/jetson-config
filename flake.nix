@@ -35,14 +35,17 @@
         ./configuration.nix
         jetpack.nixosModules.default
         disko.nixosModules.default
-      ];
-    };
-
-    homeConfigurations.luisnquin = home-manager.lib.homeManagerConfiguration {
-      pkgs = nixpkgs.legacyPackages.aarch64-linux;
-      modules = [
-        black-terminal.homeModules.default
-        ./home.nix
+        home-manager.nixosModules.default
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.luisnquin = {
+            imports = [
+              black-terminal.homeModules.default
+              ./home.nix
+            ];
+          };
+        }
       ];
     };
 

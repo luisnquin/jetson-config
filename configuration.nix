@@ -64,6 +64,8 @@
         i3blocks
       ];
     };
+
+    xkb.layout = "latam";
   };
 
   programs.i3lock.enable = true;

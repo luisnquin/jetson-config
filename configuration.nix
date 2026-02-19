@@ -4,11 +4,29 @@
     ./disko-config.nix
   ];
 
-  nixpkgs.config = {
-    allowUnfree = true;
-    cudaSupport = true;
-    # reduces build times, produces smaller closures, and provides the CUDA compiler more opportunities for optimization
-    cudaCapabilities = ["8.7"];
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      cudaSupport = true;
+      # reduces build times, produces smaller closures, and provides the CUDA compiler more opportunities for optimization
+      cudaCapabilities = ["8.7"];
+    };
+
+    overlays = [
+      (final: prev: {
+        nvidia-jetpack = prev.nvidia-jetpack.overrideScope (
+          jfinal: jprev: {
+            l4t-3d-core = jprev.l4t-3d-core.overrideAttrs (old: {
+              src = old.src.override {
+                preDebNormalization = ''
+                  mv source/usr/lib/xorg source/usr/lib/aarch64-linux-gnu
+                '';
+              };
+            });
+          }
+        );
+      })
+    ];
   };
 
   boot.loader = {

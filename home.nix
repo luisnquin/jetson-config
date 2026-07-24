@@ -23,7 +23,10 @@
     macchina.enable = true;
     magic-wormhole.enable = true;
     starship.enable = true;
-    tmux.enable = true;
+    tmux = {
+      enable = true;
+      autoStart = true;
+    };
     zoxide.enable = true;
     zsh.enable = true;
   };

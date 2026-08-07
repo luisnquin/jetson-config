@@ -74,7 +74,8 @@
         x86_64-linux = rec {
           default = installer-iso;
           installer-iso = self.nixosConfigurations.installer.config.system.build.isoImage;
-          inherit (jetpack.packages.x86_64-linux) flash-orin-nano-super-devkit;
+          # jp6 firmware cannot boot a jp7 kernel, so the qspi has to be rewritten
+          inherit (jetpack.packages.x86_64-linux) flash-orin-nano-super-devkit-jp7;
         };
       };
   };

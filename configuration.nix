@@ -24,6 +24,8 @@
       som = "orin-nano";
       super = true;
       carrierBoard = "devkit";
+      # orin defaults to jetpack 6 and its 5.15 kernel; 7 is l4t 39.2 on 6.8
+      majorVersion = "7";
       firmware.autoUpdate = true;
       modesetting.enable = false; # X11
     };

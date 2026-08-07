@@ -40,7 +40,7 @@
       ];
     };
 
-    nixosConfigurations.jyx = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.ori0n = nixpkgs.lib.nixosSystem {
       modules = [
         black-terminal.nixosModules.default
         ./configuration.nix

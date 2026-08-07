@@ -15,8 +15,8 @@ infect() {
 	nix --experimental-features "nix-command flakes" \
 		run .#disko -- --mode disko ./disko-config.nix
 
-	if ! nixos-install --flake .#jyx; then
-		nixos-install --max-jobs 1 --flake .#jyx
+	if ! nixos-install --flake .#ori0n; then
+		nixos-install --max-jobs 1 --flake .#ori0n
 	fi
 }
 

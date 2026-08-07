@@ -31,7 +31,7 @@
   };
 
   networking = {
-    hostName = "jyx";
+    hostName = "ori0n";
     networkmanager.enable = true;
   };
 

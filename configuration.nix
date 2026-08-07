@@ -2,6 +2,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko-config.nix
+    ./modules/usb-device-mode.nix
   ];
 
   nixpkgs.config = {
@@ -29,6 +30,10 @@
 
     graphics.enable = true;
   };
+
+  # keeps a console and an ip on the type-c port, since hdmi/dp carries no
+  # linux console on orin
+  jetson.usbDeviceMode.enable = true;
 
   networking = {
     hostName = "ori0n";

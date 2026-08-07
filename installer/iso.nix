@@ -6,6 +6,7 @@
 }: {
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
+    ../modules/usb-device-mode.nix
   ];
 
   nixpkgs = {
@@ -28,6 +29,11 @@
   hardware.enableAllHardware = lib.mkForce false;
 
   boot.zfs.forceImportRoot = false;
+
+  # the orin has no working linux console over hdmi/dp and /dev/console is
+  # ttyTCU0, so the type-c port and ssh are the only ways in without a usb-ttl
+  # adapter on the uart
+  jetson.usbDeviceMode.enable = true;
 
   # the installer's nixos user already has passwordless wheel
   users.users.nixos.openssh.authorizedKeys.keys = [

@@ -22,6 +22,7 @@
     home-manager,
     jetpack,
     nixpkgs,
+    self,
     ...
   }: let
     forAllSystems = function:
@@ -29,6 +30,16 @@
         system: function nixpkgs.legacyPackages.${system}
       );
   in {
+    # aarch64 installer image, cross-compiled from x86_64 so it does not go
+    # through qemu. Carries the jetpack kernel, unlike the generic NixOS
+    # aarch64 ISO.
+    nixosConfigurations.installer = nixpkgs.lib.nixosSystem {
+      modules = [
+        jetpack.nixosModules.default
+        ./installer/iso.nix
+      ];
+    };
+
     nixosConfigurations.jyx = nixpkgs.lib.nixosSystem {
       modules = [
         black-terminal.nixosModules.default
@@ -49,9 +60,18 @@
       ];
     };
 
-    packages = forAllSystems (pkgs: rec {
-      default = pkgs.callPackage ./installer {};
-      infection = default;
-    });
+    packages =
+      forAllSystems (pkgs: rec {
+        default = pkgs.callPackage ./installer {};
+        infection = default;
+      })
+      // {
+        # flashing tooling ships x86_64-only binaries, so the host does this half
+        x86_64-linux = rec {
+          default = installer-iso;
+          installer-iso = self.nixosConfigurations.installer.config.system.build.isoImage;
+          inherit (jetpack.packages.x86_64-linux) flash-orin-nano-super-devkit;
+        };
+      };
   };
 }

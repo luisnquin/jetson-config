@@ -24,5 +24,26 @@
           withPackages = f: prev.python312.withPackages (_: f pkgs');
         };
     })
+
+    # jetpack pins uefi-firmware-parser to v1.14, whose setup.py still declares
+    # itself uefi_firmware 1.11. nixpkgs-unstable grew a metadata check phase
+    # that catches the mismatch, and patchfv stamps the tegra firmware, so the
+    # flash script cannot build without it. drop once jetpack converges back to
+    # the nixpkgs package, which is on 1.16 and carries the fix it waits for.
+    #
+    # matched on pname so no other python package's environment moves; patchfv
+    # comes from flasherPkgs, hence the top-level set rather than the scope.
+    (_: prev: {
+      python3Packages =
+        prev.python3Packages
+        // {
+          buildPythonPackage = args:
+            prev.python3Packages.buildPythonPackage (
+              if builtins.isAttrs args && (args.pname or "") == "uefi-firmware-parser"
+              then args // {dontCheckPythonMetadata = true;}
+              else args
+            );
+        };
+    })
   ];
 }

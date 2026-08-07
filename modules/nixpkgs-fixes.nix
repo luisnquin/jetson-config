@@ -22,6 +22,30 @@
         # hypothesis-generated tolerance case. dropping joblib's tests keeps
         # both out of the closure rather than compiling scipy to ignore it.
         joblib = pyprev.joblib.overridePythonAttrs {doCheck = false;};
+
+        # jetpack pins edk2-pytool-extensions 0.29.4, which still reaches for
+        # pkg_resources; setuptools dropped it in 81 and nixpkgs is on 83, so
+        # stuart_setup dies on import before the firmware build starts. the
+        # calls only log installed versions, so importlib.metadata covers them.
+        buildPythonPackage = args:
+          pyprev.buildPythonPackage (
+            if builtins.isAttrs args && (args.pname or "") == "edk2-pytool-extensions"
+            then
+              args
+              // {
+                postPatch =
+                  (args.postPatch or "")
+                  + ''
+                    substituteInPlace edk2toolext/edk2_invocable.py \
+                      --replace-fail 'import pkg_resources' 'import importlib.metadata' \
+                      --replace-fail 'pip_packages = [p for p in pkg_resources.working_set]' 'pip_packages = list(importlib.metadata.distributions())' \
+                      --replace-fail 'version = pkg_resources.get_distribution(package).version' 'version = package.version' \
+                      --replace-fail 'package.project_name, version, version_aggregator.VersionTypes.PIP' 'package.metadata["Name"], version, version_aggregator.VersionTypes.PIP' \
+                      --replace-fail 'format(package.project_name, version)' 'format(package.metadata["Name"], version)'
+                  '';
+              }
+            else args
+          );
       });
     in {
       python312 =

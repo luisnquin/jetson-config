@@ -1,0 +1,5 @@
+result
+result-*
+
+# upstream clone kept locally for reading jetpack internals, not part of the flake
+jetpack-nixos/

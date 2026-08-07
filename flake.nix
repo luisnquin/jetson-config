@@ -40,17 +40,6 @@
       ];
     };
 
-    # same jetpack settings as the installer, so the firmware it writes matches
-    # what the iso boots. split out only to keep the pygount workaround off the
-    # iso, whose derivations are already built.
-    nixosConfigurations.flasher = nixpkgs.lib.nixosSystem {
-      modules = [
-        jetpack.nixosModules.default
-        ./installer/iso.nix
-        ./modules/nixpkgs-fixes.nix
-      ];
-    };
-
     nixosConfigurations.ori0n = nixpkgs.lib.nixosSystem {
       modules = [
         black-terminal.nixosModules.default
@@ -86,9 +75,9 @@
           default = installer-iso;
           installer-iso = self.nixosConfigurations.installer.config.system.build.isoImage;
           # jp6 firmware cannot boot a jp7 kernel, so the qspi has to be
-          # rewritten. taken from our own cross-configured config rather than
-          # jetpack's generic output, so the local overlays reach it.
-          flash-firmware = self.nixosConfigurations.flasher.config.system.build.flashScript;
+          # rewritten. taken from the installer rather than jetpack's generic
+          # output, so it writes the exact firmware the iso expects to find.
+          flash-firmware = self.nixosConfigurations.installer.config.system.build.flashScript;
         };
       };
   };

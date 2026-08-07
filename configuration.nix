@@ -3,6 +3,7 @@
     ./hardware-configuration.nix
     ./disko-config.nix
     ./modules/usb-device-mode.nix
+    ./modules/nixpkgs-fixes.nix
   ];
 
   nixpkgs.config = {

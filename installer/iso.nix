@@ -7,6 +7,7 @@
   imports = [
     (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")
     ../modules/usb-device-mode.nix
+    ../modules/nixpkgs-fixes.nix
   ];
 
   nixpkgs = {

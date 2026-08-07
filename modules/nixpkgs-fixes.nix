@@ -15,6 +15,13 @@
         pygount = pyprev.pygount.overridePythonAttrs (old: {
           pythonRelaxDeps = (old.pythonRelaxDeps or []) ++ ["chardet"];
         });
+
+        # joblib is in the edk2 env and tests against threadpoolctl, which in
+        # turn tests against scipy. hydra only builds the default interpreter,
+        # so nothing on this path is cached for 3.12, and scipy's suite fails a
+        # hypothesis-generated tolerance case. dropping joblib's tests keeps
+        # both out of the closure rather than compiling scipy to ignore it.
+        joblib = pyprev.joblib.overridePythonAttrs {doCheck = false;};
       });
     in {
       python312 =

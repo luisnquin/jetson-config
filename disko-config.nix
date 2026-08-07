@@ -17,18 +17,18 @@
                 mountOptions = ["umask=0077"];
               };
             };
-            root = {
-              size = "228G";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/";
-              };
-            };
             swap = {
               size = "4G";
               content = {
                 type = "swap";
+              };
+            };
+            root = {
+              size = "100%";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/";
               };
             };
           };

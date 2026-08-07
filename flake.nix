@@ -61,9 +61,13 @@
     };
 
     packages =
-      forAllSystems (pkgs: rec {
-        default = pkgs.callPackage ./installer {};
-        infection = default;
+      forAllSystems (pkgs: let
+        infection = pkgs.callPackage ./installer {};
+      in {
+        inherit infection;
+        default = infection;
+        # exposed so infection partitions with the locked disko, not master
+        inherit (disko.packages.${pkgs.stdenv.hostPlatform.system}) disko;
       })
       // {
         # flashing tooling ships x86_64-only binaries, so the host does this half

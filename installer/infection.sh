@@ -1,12 +1,19 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 infect() {
-	DOTS_DIR="$HOME/.dotfiles"
-	git clone https://github.com/luisnquin/jetson-config.git "$DOTS_DIR"
+	set -eu
 
-	cd "$DOTS_DIR"
+	DOTS_DIR="$HOME/.dotfiles"
+
+	if [ -d "$DOTS_DIR/.git" ]; then
+		git -C "$DOTS_DIR" pull --ff-only
+	else
+		git clone https://github.com/luisnquin/jetson-config.git "$DOTS_DIR"
+	fi
+
+	cd "$DOTS_DIR" || exit 1
 	nix --experimental-features "nix-command flakes" \
-		run github:nix-community/disko -- --mode disko ./disko-config.nix
+		run .#disko -- --mode disko ./disko-config.nix
 
 	if ! nixos-install --flake .#jyx; then
 		nixos-install --max-jobs 1 --flake .#jyx
@@ -14,7 +21,7 @@ infect() {
 }
 
 main() {
-	sudo sh -c "$(declare -f infect); infect"
+	sudo bash -c "$(declare -f infect); infect"
 }
 
 main

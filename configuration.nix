@@ -43,6 +43,10 @@
     networkmanager.enable = true;
   };
 
+  # the installer iso carried sshd, the installed system did not, and orin has
+  # no linux console on hdmi/dp
+  services.openssh.enable = true;
+
   time.timeZone = "America/New_York";
 
   i18n.defaultLocale = "en_US.UTF-8";

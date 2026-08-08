@@ -47,6 +47,16 @@
   # no linux console on hdmi/dp
   services.openssh.enable = true;
 
+  services.tailscale = {
+    enable = true;
+    # opens the udp port tailscaled picks, so peers connect directly instead of
+    # falling back to a derp relay
+    openFirewall = true;
+    # loosens reverse path filtering, which strict mode drops when traffic
+    # arrives over an exit node
+    useRoutingFeatures = "client";
+  };
+
   time.timeZone = "America/New_York";
 
   i18n.defaultLocale = "en_US.UTF-8";
